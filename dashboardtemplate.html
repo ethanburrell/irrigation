@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<title>Dashboard</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+</style>
+<body class="">
+<div class="w3-container w3-twothird w3-light-grey">
+  <div id="map-canvas" style="width:100%; height:100vh; margin:0; padding:0;"></div>
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=drawing"></script>
+</div>
+
+
+
+<div class="w3-container w3-third">
+  <select>
+    <option> Water Use </option>
+    <option> Sensor Stations </option>
+  </select>
+  <br>
+  <table class="w3-table w3-striped w3-bordered">
+    <tr>
+      <th> </th>
+      <th> <h6> Zone #</h6> </th>
+      <th> <h6> Trend of water usage </h6></th>
+      <th> <h6> Daily change in usage </h6> </th>
+    </tr>
+  <tr>
+    <td style="vertical-align:middle;"><div style="width: 20px; height: 20px; background-color: #2980B9;"></div></td>
+    <td> <h4> 1 </h4> </td>
+    <td> <img src="graph1.png" height="50px"></td>
+    <td> <h4 style="color: green"> -10% </h4> </td>
+  </tr>
+  <tr>
+    <td style="vertical-align:middle;"><div style="width: 20px; height: 20px; background-color: #229954;"></div></td>
+    <td> <h4> 2 </h4> </td>
+    <td> <img src="graph.png" height="50px"></td>
+    <td> <h4 style="color: red"> +50% </h4> </td>
+  </tr>
+  <tr>
+    <td style="vertical-align:middle;"><div style="width: 20px; height: 20px; background-color: #8E44AD;"></div></td>
+    <td> <h4> 3 </h4> </td>
+    <td> <img src="graph1.png" height="50px"></td>
+    <td> <h4 style="color: green"> -5% </h4> </td>
+  </tr>
+  </table>
+</div>
+
+<script>
+      var map = new google.maps.Map(document.getElementById('map-canvas'), {
+        zoom: 19,
+        center: new google.maps.LatLng(38.710151, -122.961827),
+        mapTypeId: 'satellite'
+      });
+
+      // Define the LatLng coordinates for the polygon's path.
+      var zone1 = [
+      {lat:38.710731, lng:-122.96084},
+      {lat:38.710145, lng:-122.961382},
+      {lat:38.710241, lng:-122.961522},
+      {lat:38.710358, lng:-122.96164},
+      {lat:38.710513, lng:-122.96172},
+      {lat:38.710731, lng:-122.961886},
+      {lat:38.710881, lng:-122.961892},
+      {lat:38.711011, lng:-122.961838},
+      {lat:38.711195, lng:-122.961683},
+      {lat:38.711166, lng:-122.961516},
+      {lat:38.711212, lng:-122.961355}
+      ];
+
+      var zone2 = [
+      {lat:38.710114, lng:-122.962076},
+      {lat:38.709963, lng:-122.961916},
+      {lat:38.709951, lng:-122.961783},
+      {lat:38.709897, lng:-122.961731},
+      {lat:38.709671, lng:-122.962009},
+      {lat:38.709845, lng:-122.962213},
+      {lat:38.709874, lng:-122.96217},
+      {lat:38.709964, lng:-122.962272}
+      ];
+      var zone3 = [
+      {lat:38.710439, lng:-122.961857},
+      {lat:38.710423, lng:-122.962085},
+      {lat:38.710497, lng:-122.962135},
+      {lat:38.71058, lng:-122.962101},
+      {lat:38.710608, lng:-122.962026},
+      {lat:38.710599, lng:-122.961963},
+      {lat:38.71055, lng:-122.961907},
+      {lat:38.710478, lng:-122.961874}
+      ];
+      // Construct the polygon.
+      var z1 = new google.maps.Polygon({
+        paths: zone1,
+        strokeColor: '#2980B9',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#2980B9',
+        fillOpacity: 0.35
+      });
+      var z2 = new google.maps.Polygon({
+        paths: zone2,
+        strokeColor: '#229954',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#229954',
+        fillOpacity: 0.35
+      });
+      var z3= new google.maps.Polygon({
+        paths: zone3,
+        strokeColor: '#8E44AD',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#8E44AD',
+        fillOpacity: 0.35
+      });
+      z1.setMap(map);
+      z2.setMap(map);
+      z3.setMap(map);
+  </script>
+
+</body>
+</html>

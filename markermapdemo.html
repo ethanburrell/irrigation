@@ -1,0 +1,55 @@
+<html>
+<head>
+<style>
+html, body, #map-canvas {
+    height: 100%;
+    margin: 0px;
+    padding: 10px
+}
+button {
+    margin: 0 0 10px;
+}
+}
+</style>
+</head>
+<body>
+  <div id="map-canvas" style="width:100%; height:100%; margin:0; padding:0;"></div>
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=drawing"></script>
+
+  <script>
+    var map = new google.maps.Map(document.getElementById('map-canvas'), {
+      zoom: 19,
+      center: new google.maps.LatLng(38.710151, -122.961827),
+      mapTypeId: 'satellite'
+    });
+
+    var sensor1 = new google.maps.Marker({
+    position: new google.maps.LatLng(38.71059366396813 -122.96198122701833),
+    label: "A",
+    });
+
+    sensor1.setMap(map);
+
+    var marker = new google.maps.Marker({
+      position: new google.maps.LatLng(38.71059366396813 -122.96198122701833),
+      label: "A",
+      map: map
+    });
+    marker.setMap(map);
+/*
+    var sensor2 = new google.maps.Marker({
+    position: new google.maps.LatLng(38.71046808581595, -122.96209387979695),
+    title:"Hello World!"
+    });
+    sensor2.setMap(map);
+
+    var sensor2 = new google.maps.Marker({
+    position: new google.maps.LatLng(38.71050366631479, -122.96191148958394),
+    title:"Hello World!"
+    });
+    sensor2.setMap(map);
+    */
+
+    </script>
+</body>
+</html>

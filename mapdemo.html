@@ -1,0 +1,106 @@
+<html>
+<head>
+<style>
+html, body, #map-canvas {
+    height: 100%;
+    margin: 0px;
+    padding: 10px
+}
+button {
+    margin: 0 0 10px;
+}
+}
+</style>
+</head>
+<body>
+  <div id="map-canvas" style="width:100%; height:100%; margin:0; padding:0;"></div>
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=drawing"></script>
+
+<script>
+var pointArray = [];
+var polygonArray = [];
+
+var map;
+var drawingManager = new google.maps.drawing.DrawingManager();
+
+function initialize() {
+    var mapOptions = {
+        center: new google.maps.LatLng(38.710151, -122.961827),
+        zoom: 19,
+        mapTypeId: 'satellite'
+    };
+    map = new google.maps.Map(document.getElementById('map-canvas'),
+    mapOptions);
+    drawingManager.setMap(map);
+
+
+}
+
+//function drawRec() {
+  /*
+		//Setting options for the Drawing Tool. In our case, enabling Polygon shape.
+		drawingManager.setOptions({
+			drawingMode : google.maps.drawing.OverlayType.RECTANGLE,
+			drawingControl : true,
+			drawingControlOptions : {
+				position : google.maps.ControlPosition.TOP_CENTER,
+				drawingModes : [ google.maps.drawing.OverlayType.RECTANGLE ]
+			},
+			rectangleOptions : {
+				strokeColor : '#6c6c6c',
+				strokeWeight : 3.5,
+				fillColor : '#926239',
+				fillOpacity : 0.6,
+                editable: true,
+              draggable: true
+			}
+		});*/
+  var drawingManager = new google.maps.drawing.DrawingManager({
+  drawingMode: google.maps.drawing.OverlayType.MARKER,
+  drawingControl: true,
+  drawingControlOptions: {
+    position: google.maps.ControlPosition.TOP_CENTER,
+    //drawingModes: ['marker', 'circle', 'polygon', 'polyline', 'rectangle']
+    drawingModes: ["marker", "polygon"]
+
+  },
+  markerOptions: {icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'},
+  polygonOptions: {
+    fillColor: '#333333',
+    fillOpacity: .5,
+    strokeWeight: 5,
+    clickable: true,
+    editable: false,
+    zIndex: 1
+  }
+});
+
+google.maps.event.addListener(drawingManager, 'polygoncomplete', function (polygon) {
+    var temp = [];
+    for (var i = 0; i < polygon.getPath().getLength(); i++) {
+        console.log(polygon.getPath().getAt(i).toUrlValue(6));
+        temp.push([polygon.getPath().getAt(i).lat(), polygon.getPath().getAt(i).lng()]);
+    }
+    polygonArray.push(temp);
+});
+
+google.maps.event.addListener(drawingManager, 'markercomplete', function (marker) {
+    //for (var i = 0; i < marker.getPosition().getLength(); i++) {
+    /*for (var i in marker) {
+        console.log(i.getPosition());
+    }*/
+    // RETRUNES A LATLONG CLASS
+    //console.log(marker.getPosition());
+    pointArray.push([marker.getPosition().lat(), marker.getPosition().lng()])
+    console.log(marker.getPosition().lat() + " " + marker.getPosition().lng());
+});
+
+//drawingManager.setMap(map);
+		// Loading the drawing Tool in the Map.
+		//drawingManager.setMap(map);
+
+
+google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+</body>
+</html>
