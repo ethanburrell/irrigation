@@ -1,0 +1,45 @@
+<html>
+<head>
+  <script src="http://code.highcharts.com/highcharts.js"></script>
+  <script src="http://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
+
+</style>
+<script>
+$(function () {
+
+    var N = 100;
+    var someData = [];
+    for (var i = 0; i < N; i++)
+    {
+        someData.push([i,Math.random() * 100]);
+    }
+
+    var moveMean = [];
+    for (var i = 1; i < N-1; i++)
+    {
+        var mean = (someData[i][1] + someData[i-1][1] + someData[i+1][1])/3.0;
+        moveMean.push([i,mean]);
+    }
+
+    $('#container').highcharts({
+         series: [{
+             name: 'data',
+             data: someData
+         },
+         {
+             name: 'moveAve',
+             data: moveMean,
+             marker: {enabled: false}
+         }]
+    });
+});
+
+
+</script>
+</head>
+<body>
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+</body>
+</html>
