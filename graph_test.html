@@ -21,54 +21,6 @@ function returnDateTimeArray(str) {
   return [date_arr[2], date_arr[0], date_arr[1], time_arr[0], time_arr[1], time_arr[2]]
 }
 
-var sample = '[{ "x": "31-07-2018 11:25:23", "y":"68.54"} ,{ "x": "31-07-2018 11:25:16", "y":"68.52"} ,{ "x": "31-07-2018 11:25:10", "y":"68.5"} ,{ "x": "31-07-2018 11:25:03", "y":"68.48"} ,{ "x": "31-07-2018 11:24:57", "y":"68.46"} ,{ "x": "31-07-2018 11:24:50", "y":"68.44"} ,{ "x": "31-07-2018 11:24:44", "y":"68.4"} ,{ "x": "31-07-2018 11:24:37", "y":"68.39"} ,{ "x": "31-07-2018 11:24:31", "y":"68.37"} ,{ "x": "31-07-2018 11:24:24", "y":"68.33"} ]' //,{ "time": "31-07-2018 11:25:10", "t":"68.5"} ,{ "time": "31-07-2018 11:25:03", "t":"68.48"} ,{ "time": "31-07-2018 11:24:57", "t":"68.46"} ,{ "time": "31-07-2018 11:24:50", "t":"68.44"} ,{ "time": "31-07-2018 11:24:44", "t":"68.4"} ,{ "time": "31-07-2018 11:24:37", "t":"68.39"} ,{ "time": "31-07-2018 11:24:31", "t":"68.37"} ,{ "time": "31-07-2018 11:24:24", "t":"68.33"} ]'
-sample = JSON.parse(sample);
-var time_arr = [];
-var data_arr = [];
-for (i in sample) {
-  //console.log(sample[i]["x"])
-  var date_arr = returnDateTimeArray(sample[i]["x"])
-  time_arr.push(new Date(date_arr[0], date_arr[1], date_arr[2], date_arr[3], date_arr[4], date_arr[5]));
-  data_arr.push(sample[i]["y"]);
-  //console.log(new Date(sample[i]["x"]))
-  //sample[i]["x"] = moment(sample[i]["x"], "DD-MM-YYYY HH:MM:SS");
-}
-console.log(time_arr);
-
-var data = {
-    // Labels should be Date objects
-    labels: time_arr,
-    datasets: [{
-        fill: false,
-        //label: 'Page Views',
-        data: data_arr,
-        borderColor: '#fe8b36',
-        backgroundColor: '#fe8b36',
-        lineTension: 0,
-    }]
-}
-
-
-var ctx = document.getElementById("chartjs-0").getContext('2d');
-
-var chart = new Chart(ctx, {
-    type: 'line',
-    data: data,
-    options: {
-        scales: {
-            xAxes: [{
-                type: 'time',
-                unit: 'minute'
-            }]
-        }
-    }
-})
-
-
-
-
-
-
 $(document).ready(function(){
   /*
   $.ajax({
@@ -90,6 +42,48 @@ $(document).ready(function(){
             // UNIX Timestamp when rates were collected is in `json.timestamp`
             console.log("asf");
             console.log(data);
+            var sample = '[{ "x": "31-07-2018 11:25:23", "y":"68.54"} ,{ "x": "31-07-2018 11:25:16", "y":"68.52"} ,{ "x": "31-07-2018 11:25:10", "y":"68.5"} ,{ "x": "31-07-2018 11:25:03", "y":"68.48"} ,{ "x": "31-07-2018 11:24:57", "y":"68.46"} ,{ "x": "31-07-2018 11:24:50", "y":"68.44"} ,{ "x": "31-07-2018 11:24:44", "y":"68.4"} ,{ "x": "31-07-2018 11:24:37", "y":"68.39"} ,{ "x": "31-07-2018 11:24:31", "y":"68.37"} ,{ "x": "31-07-2018 11:24:24", "y":"68.33"} ]' //,{ "time": "31-07-2018 11:25:10", "t":"68.5"} ,{ "time": "31-07-2018 11:25:03", "t":"68.48"} ,{ "time": "31-07-2018 11:24:57", "t":"68.46"} ,{ "time": "31-07-2018 11:24:50", "t":"68.44"} ,{ "time": "31-07-2018 11:24:44", "t":"68.4"} ,{ "time": "31-07-2018 11:24:37", "t":"68.39"} ,{ "time": "31-07-2018 11:24:31", "t":"68.37"} ,{ "time": "31-07-2018 11:24:24", "t":"68.33"} ]'
+            sample = JSON.parse(data);
+            var time_arr = [];
+            var data_arr = [];
+            for (i in sample) {
+              //console.log(sample[i]["x"])
+              var date_arr = returnDateTimeArray(sample[i]["x"])
+              time_arr.push(new Date(date_arr[0], date_arr[1], date_arr[2], date_arr[3], date_arr[4], date_arr[5]));
+              data_arr.push(sample[i]["y"]);
+              //console.log(new Date(sample[i]["x"]))
+              //sample[i]["x"] = moment(sample[i]["x"], "DD-MM-YYYY HH:MM:SS");
+            }
+            console.log(time_arr);
+
+            var data = {
+                // Labels should be Date objects
+                labels: time_arr,
+                datasets: [{
+                    fill: false,
+                    //label: 'Page Views',
+                    data: data_arr,
+                    borderColor: '#fe8b36',
+                    backgroundColor: '#fe8b36',
+                    lineTension: 0,
+                }]
+            }
+
+
+            var ctx = document.getElementById("chartjs-0").getContext('2d');
+
+            var chart = new Chart(ctx, {
+                type: 'line',
+                data: data,
+                options: {
+                    scales: {
+                        xAxes: [{
+                            type: 'time',
+                            unit: 'minute'
+                        }]
+                    }
+                }
+            });
         }
     });
 
