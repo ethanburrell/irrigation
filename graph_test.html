@@ -39,9 +39,12 @@ function returnDateTimeArray(str) {
   var date_arr = date_str.split("-");
   var time_arr = time_str.split(":");
   //console.log(date_arr);
-  return [date_arr[2], date_arr[0], date_arr[1], time_arr[0], time_arr[1], time_arr[2]]
+  //return [date_arr[2], date_arr[0], date_arr[1], time_arr[0], time_arr[1], time_arr[2]]
+  return [date_arr[0], date_arr[1], date_arr[2], time_arr[0], time_arr[1], time_arr[2]]
+  //YYYY, MM, DD, HH,MM,SS
 }
 //04:43:49 2018-09-01
+//11:55:04 2018-09-01
 
 $(document).ready(function(){
   /*
@@ -73,7 +76,10 @@ $(document).ready(function(){
             for (i in sample) {
               //console.log(sample[i]["x"])
               var date_arr = returnDateTimeArray(sample[i]["x"])
-              time_arr.push(new Date(date_arr[0], date_arr[1], date_arr[2], date_arr[3], date_arr[4], date_arr[5]));
+              //time_arr.push(new Date(date_arr[0], date_arr[1], date_arr[2], date_arr[3], date_arr[4], date_arr[5]));
+              //console.log(date_arr[0]+":"+date_arr[1]+":"+date_arr[2]+" "+date_arr[3]+"-"+date_arr[4]+"-"+date_arr[5]+"GMT-8:00")
+              //console.log(new Date(date_arr[0]+"-"+date_arr[1]+"-"+date_arr[2]+" "+date_arr[3]+":"+date_arr[4]+":"+date_arr[5]+" GMT-8:00"))
+              time_arr.push(new Date(date_arr[0]+"-"+date_arr[1]+"-"+date_arr[2]+" "+date_arr[3]+":"+date_arr[4]+":"+date_arr[5]+" GMT-8:00"));
               data_arr.push(sample[i]["y"]);
               //console.log(new Date(sample[i]["x"]))
               //sample[i]["x"] = moment(sample[i]["x"], "DD-MM-YYYY HH:MM:SS");
