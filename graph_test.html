@@ -128,7 +128,7 @@ $(document).ready(function(){
                 labels: time_arr,
                 datasets: [{
                     fill: false,
-                    //label: 'Page Views',
+                    label: document.getElementById("type").options[document.getElementById("type").selectedIndex].innerText,
                     data: data_arr,
                     borderColor: '#fe8b36',
                     backgroundColor: '#fe8b36',
