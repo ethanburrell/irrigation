@@ -10,7 +10,41 @@
 
 <canvas id="chartjs-0" class="chartjs" width="1268" height="634" style="display: block; height: 317px; width: 634px;"></canvas>
 
+<select id="dur">
+  <option value="d">Day</option>
+  <option value="w">Week</option>
+  <option value="m">Month</option>
+  <option value="3m">3 Month</option>
+</select>
+
+<select id="type">
+  <option value="t">Temperature</option>
+  <option value="iT">Tempature of Chip</option>
+  <option value="sM">sM</option>
+  <option value="h">Humidity</option>
+  <option value="uv">Ultra Violet</option>
+  <option value="vL">vL</option>
+  <option value="sV">sV</option>
+  <option value="bP">bP</option>
+</select>
+
+<select id="sensorNumber">
+  <option value="1">Sensor 1</option>
+  <option value="2">Sensor 2</option>
+</select>
+<button onclick="newGraph()"> Go! </button>
 <script>
+
+function newGraph() {
+    var dur = document.getElementById("dur");
+    var type = document.getElementById("type");
+    var sensorNumber = document.getElementById("sensorNumber");
+
+    //"?datatype=t&fieldsensor=1&duration=d"
+    var request = "?datatype=" + type.value + "&fieldsensor="+ sensorNumber.value +"&duration=" + dur.value;
+    window.location.search = request;
+}
+
 
 function parseURLParams(url) {
     var queryStart = url.indexOf("?") + 1,
@@ -58,6 +92,9 @@ $(document).ready(function(){
              }
   });*/
     var params = parseURLParams(window.location.href);
+    document.getElementById("dur").value = params["duration"][0];
+    document.getElementById("type").value = params["datatype"][0];
+    document.getElementById("sensorNumber").value = params["fieldsensor"][0];
     //var url =
     $.ajax({
       //https://data-farm-armadillodude.c9users.io/notes?key=102798&datatype=t&fieldsensor=1&duration=d
@@ -102,6 +139,14 @@ $(document).ready(function(){
 
             var ctx = document.getElementById("chartjs-0").getContext('2d');
 
+            var time_unit = "";
+            if (params["duration"][0] == "d") {
+              time_unit="hour"
+            } else if (params["duration"][0] == "w") {
+                time_unit="day"
+            }
+
+
             var chart = new Chart(ctx, {
                 type: 'line',
                 data: data,
@@ -109,7 +154,7 @@ $(document).ready(function(){
                     scales: {
                         xAxes: [{
                             type: 'time',
-                            unit: 'minute'
+                            unit: time_unit
                         }]
                     }
                 }
