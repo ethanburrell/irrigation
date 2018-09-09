@@ -35,6 +35,21 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     <td id="bP2"> </td>
     <td> <a href="graph_test.html?datatype=t&fieldsensor=2&duration=w"> Graph </a> </td>
   </tr>
+  <tr>
+    <td> <h4> 3 </h4> </td>
+    <td id="bP3"> </td>
+    <td> <a href="graph_test.html?datatype=t&fieldsensor=3&duration=w"> Graph </a> </td>
+  </tr>
+  <tr>
+    <td> <h4> 4 </h4> </td>
+    <td id="bP4"> </td>
+    <td> <a href="graph_test.html?datatype=t&fieldsensor=4&duration=w"> Graph </a> </td>
+  </tr>
+  <tr>
+    <td> <h4> 5 </h4> </td>
+    <td id="bP5"> </td>
+    <td> <a href="graph_test.html?datatype=t&fieldsensor=5&duration=w"> Graph </a> </td>
+  </tr>
   </table>
 </div>
 
@@ -70,6 +85,39 @@ $.ajax({
         createBatteryPercentage("bP2", data["x"])
       }
     });
+
+    $.ajax({
+      //https://data-farm-armadillodude.c9users.io/notes?key=102798&datatype=t&fieldsensor=1&duration=d
+        url: "https://data-farm-armadillodude.c9users.io/battery?key=102798&fieldsensor=3",
+        dataType: 'text',
+        success: function(data) {
+          data = JSON.parse(data);
+          createBatteryPercentage("bP3", data["x"])
+        }
+      });
+
+      $.ajax({
+        //https://data-farm-armadillodude.c9users.io/notes?key=102798&datatype=t&fieldsensor=1&duration=d
+          url: "https://data-farm-armadillodude.c9users.io/battery?key=102798&fieldsensor=4",
+          dataType: 'text',
+          success: function(data) {
+            data = JSON.parse(data);
+            createBatteryPercentage("bP4", data["x"])
+          }
+        });
+
+        $.ajax({
+          //https://data-farm-armadillodude.c9users.io/notes?key=102798&datatype=t&fieldsensor=1&duration=d
+            url: "https://data-farm-armadillodude.c9users.io/battery?key=102798&fieldsensor=5",
+            dataType: 'text',
+            success: function(data) {
+              data = JSON.parse(data);
+              createBatteryPercentage("bP5", data["x"])
+            }
+          });
+
+
+
 </script>
 
 <script>
@@ -80,10 +128,11 @@ $.ajax({
       });
 
       // Define the LatLng coordinates for the polygon's path.
-      var m1 ={lat:38.71070563763445, lng:-122.96086811027715};
-      var m2 ={lat:38.71118701775362, lng:-122.96137504778096};
-      var m3 ={lat:38.71079144911049, lng:-122.96179883680531};
-      var m4 ={lat:38.71020332448899, lng:-122.96134017906377};
+      var m1 ={lat:38.71148017075376, lng:-122.96172702673255};
+      var m2 ={lat:38.711641327060725, lng:-122.96179944637595};
+      var m3 ={lat:38.71120180900418, lng:-122.96140516165076};
+      var m4 ={lat:38.70849034142974, lng:-122.96003589394866};
+      var m5 ={lat:38.71100501286729, lng:-122.9626427980636};
 
 
       // Construct the polygon.
@@ -106,6 +155,11 @@ $.ajax({
         position: m4,
         map: map,
         label: "4"
+      });
+      var marker5 = new google.maps.Marker({
+        position: m5,
+        map: map,
+        label: "5"
       });
 
       //marker1.setMap(map);
